@@ -34,7 +34,52 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   initScrollChoreography();
+  initLaunchBanner();
 });
+
+// Banner sticky de lanzamiento con cuenta atrás (port a vanilla del
+// componente "banner" de 21st.dev/originui, sin React).
+function initLaunchBanner() {
+  // TODO: poner aquí la fecha real de lanzamiento (esta es de ejemplo).
+  const LAUNCH_DATE = new Date('2026-10-01T09:00:00+02:00');
+
+  const banner = document.getElementById('launch-banner');
+  const countdown = document.getElementById('banner-countdown');
+  const closeBtn = document.getElementById('banner-close');
+  if (!banner || !countdown) return;
+
+  // Si el visitante lo cerró, no volver a mostrarlo durante la sesión.
+  if (sessionStorage.getItem('launch-banner-closed')) return;
+
+  closeBtn.addEventListener('click', () => {
+    banner.hidden = true;
+    sessionStorage.setItem('launch-banner-closed', '1');
+  });
+
+  const pad = (n) => String(n).padStart(2, '0');
+
+  function render() {
+    const diff = LAUNCH_DATE.getTime() - Date.now();
+    if (diff <= 0) {
+      banner.hidden = true;
+      clearInterval(timer);
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    countdown.innerHTML =
+      (days > 0 ? '<span>' + days + '<small>d</small></span>' : '') +
+      '<span>' + pad(hours) + '<small>h</small></span>' +
+      '<span>' + pad(minutes) + '<small>m</small></span>' +
+      '<span>' + pad(seconds) + '<small>s</small></span>';
+  }
+
+  render();
+  banner.hidden = false;
+  const timer = setInterval(render, 1000);
+}
 
 // Coreografía de scroll del hero (port a vanilla del componente React
 // "scroll-choreography" de 21st.dev, sin framer-motion).

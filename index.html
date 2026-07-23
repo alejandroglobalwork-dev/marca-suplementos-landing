@@ -9,17 +9,35 @@
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="logo">[NOMBRE<span>MARCA</span>]</div>
-      <nav>
-        <a href="#producto">El producto</a>
-        <a href="#protocolo">Protocolo Sento 6</a>
-        <a href="#ciencia">La ciencia</a>
-        <a href="#waitlist" class="btn btn-small">Únete a la lista</a>
-      </nav>
+  <div class="top-sticky">
+
+    <div class="launch-banner" id="launch-banner" hidden>
+      <div class="container banner-inner">
+        <span class="banner-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </span>
+        <p class="banner-text"><strong>Lanzamiento del magnesio</strong><span class="banner-sub"> · Abrimos el acceso anticipado en</span></p>
+        <div class="banner-countdown" id="banner-countdown"></div>
+        <a href="#waitlist" class="btn btn-invert btn-small">Únete a la lista</a>
+        <button class="banner-close" id="banner-close" aria-label="Cerrar aviso">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
     </div>
-  </header>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="logo">[NOMBRE<span>MARCA</span>]</div>
+        <nav>
+          <a href="#producto">El producto</a>
+          <a href="#protocolo">Protocolo Sento 6</a>
+          <a href="#ciencia">La ciencia</a>
+          <a href="#waitlist" class="btn btn-small">Únete a la lista</a>
+        </nav>
+      </div>
+    </header>
+
+  </div>
 
   <section class="hero-choreo" id="hero-choreo">
     <div class="choreo-sticky">

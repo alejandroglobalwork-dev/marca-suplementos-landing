@@ -81,14 +81,91 @@ h1, h2, h3 { letter-spacing: -0.015em; line-height: 1.15; }
 
 .btn-invert:hover { background: var(--sage-light); border-color: var(--sage-light); }
 
+/* Barra superior sticky (banner de lanzamiento + header) */
+.top-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.launch-banner {
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+}
+
+.banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+.banner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.banner-text { margin: 0; }
+
+.banner-sub { color: rgba(255, 255, 255, 0.65); }
+
+.banner-countdown {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+}
+
+.banner-countdown span {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 9px;
+  font-weight: 600;
+}
+
+.banner-countdown span + span { border-left: 1px solid rgba(255, 255, 255, 0.18); }
+
+.banner-countdown small {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.65);
+  margin-left: 2px;
+}
+
+.launch-banner .btn-invert { padding: 6px 14px; font-size: 13px; }
+
+.banner-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #fff;
+  opacity: 0.6;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.banner-close:hover { opacity: 1; }
+
 /* Header */
 .site-header {
   border-bottom: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(8px);
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .header-inner {
@@ -513,6 +590,8 @@ section h2 { font-size: clamp(26px, 3.6vw, 38px); font-weight: 800; }
 
 @media (max-width: 640px) {
   nav a:not(.btn) { display: none; }
+  .banner-sub, .banner-icon { display: none; }
+  .launch-banner { font-size: 13px; }
   section { padding: 56px 0; }
   .hero-choreo { padding: 0; }
   .choreo-img { width: 42vw; height: 15vh; }
