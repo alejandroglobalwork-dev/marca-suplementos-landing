@@ -218,7 +218,7 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
 
 .choreo-heading {
   position: absolute;
-  top: 12vh;
+  top: 3vh;
   left: 50%;
   transform: translateX(-50%);
   width: min(92%, 680px);
