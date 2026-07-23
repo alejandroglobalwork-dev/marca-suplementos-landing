@@ -32,4 +32,115 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Enlace del libro pendiente: falta la URL del punto de venta de Sento.');
     });
   });
+
+  initScrollChoreography();
 });
+
+// Coreografía de scroll del hero (port a vanilla del componente React
+// "scroll-choreography" de 21st.dev, sin framer-motion).
+// Fase 1 (0–0.3): movimiento diagonal. Fase 2 (0.35–0.65): apilado al centro.
+// Fase 3 (0.7–0.9): la imagen superior derecha se expande a pantalla completa.
+function initScrollChoreography() {
+  const section = document.getElementById('hero-choreo');
+  if (!section) return;
+
+  const els = {
+    tl: section.querySelector('.choreo-tl'),
+    tr: section.querySelector('.choreo-tr'),
+    bl: section.querySelector('.choreo-bl'),
+    br: section.querySelector('.choreo-br'),
+    center: section.querySelector('.choreo-center'),
+    final: section.querySelector('.choreo-final'),
+  };
+
+  // Interpolación lineal por tramos, equivalente a useTransform(progress, stops, values).
+  function interp(p, stops, values) {
+    if (p <= stops[0]) return values[0];
+    for (let i = 0; i < stops.length - 1; i++) {
+      if (p <= stops[i + 1]) {
+        const t = (p - stops[i]) / (stops[i + 1] - stops[i]);
+        return values[i] + (values[i + 1] - values[i]) * t;
+      }
+    }
+    return values[values.length - 1];
+  }
+
+  const STOPS = [0, 0.3, 0.35, 0.65, 1];
+
+  function offsets() {
+    // En móvil las imágenes se separan menos para no pisar el texto central.
+    const mobile = window.matchMedia('(max-width: 640px)').matches;
+    return mobile
+      ? { x: 26, yTop: -26, yBottom: 26, w: 42, h: 15 }   // vw / vh
+      : { x: 20, yTop: -14, yBottom: 14, w: 36, h: 24 };
+  }
+
+  function apply(p) {
+    const vw = window.innerWidth / 100;
+    const vh = window.innerHeight / 100;
+    const o = offsets();
+    const xL = -o.x * vw, xR = o.x * vw;
+    const yT = o.yTop * vh, yB = o.yBottom * vh;
+
+    const move = (el, xs, ys) => {
+      const x = interp(p, STOPS, xs);
+      const y = interp(p, STOPS, ys);
+      el.style.transform = 'translate(calc(-50% + ' + x + 'px), calc(-50% + ' + y + 'px))';
+    };
+
+    move(els.tl, [xL, xL, xL, 0, 0], [yT, yB, yB, 0, 0]);
+    move(els.br, [xR, xR, xR, 0, 0], [yB, yT, yT, 0, 0]);
+    move(els.bl, [xL, xL, xL, 0, 0], [yB, yB, yB, 0, 0]);
+    move(els.tr, [xR, xR, xR, 0, 0], [yT, yT, yT, 0, 0]);
+
+    // Expansión final de la imagen superior derecha.
+    els.tr.style.width = interp(p, [0.65, 0.7, 0.9, 1], [o.w, o.w, 100, 100]) * vw + 'px';
+    els.tr.style.height = interp(p, [0.65, 0.7, 0.9, 1], [o.h, o.h, 100, 100]) * vh + 'px';
+    els.tr.style.borderRadius = interp(p, [0.7, 0.9], [14, 0]) + 'px';
+
+    // Las demás imágenes se desvanecen bajo la que se expande.
+    const under = interp(p, [0.75, 0.85], [1, 0]);
+    els.tl.style.opacity = under;
+    els.bl.style.opacity = under;
+    els.br.style.opacity = under;
+
+    // El texto central se desvanece cuando las imágenes convergen.
+    const centerOp = interp(p, [0.25, 0.45], [1, 0]);
+    els.center.style.opacity = centerOp;
+    els.center.style.pointerEvents = centerOp < 0.4 ? 'none' : '';
+
+    // Mensaje final sobre la imagen expandida.
+    els.final.style.opacity = interp(p, [0.85, 0.97], [0, 1]);
+  }
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    section.classList.add('no-motion');
+    apply(0);
+    return;
+  }
+
+  let current = 0;
+  let target = 0;
+
+  function readTarget() {
+    const rect = section.getBoundingClientRect();
+    const total = section.offsetHeight - window.innerHeight;
+    target = Math.min(1, Math.max(0, -rect.top / total));
+  }
+
+  window.addEventListener('scroll', readTarget, { passive: true });
+  window.addEventListener('resize', readTarget);
+  readTarget();
+  current = target;
+  apply(current);
+
+  // Suavizado tipo muelle: sustituye al useSpring de framer-motion.
+  (function tick() {
+    current += (target - current) * 0.14;
+    if (Math.abs(target - current) > 0.0005) {
+      apply(current);
+    }
+    requestAnimationFrame(tick);
+  })();
+}

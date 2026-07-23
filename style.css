@@ -121,16 +121,87 @@ nav a {
 
 nav a:not(.btn):hover { color: var(--sage-dark); }
 
-/* Hero */
-.hero { padding: 96px 0 72px; }
+/* Hero con coreografía de scroll */
+.hero-choreo {
+  position: relative;
+  height: 300vh;
+  padding: 0;
+}
 
-.hero-inner {
+.hero-choreo.no-motion { height: auto; }
+
+.choreo-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.no-motion .choreo-sticky { position: relative; }
+
+.choreo-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.choreo-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 36vw;
+  height: 24vh;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  box-shadow: 0 24px 48px -20px rgba(17, 17, 17, 0.35);
+  transform: translate(-50%, -50%);
+  will-change: transform, width, height, opacity;
+}
+
+.choreo-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.choreo-tl { z-index: 1; }
+.choreo-br { z-index: 2; }
+.choreo-bl { z-index: 3; }
+.choreo-tr { z-index: 4; }
+
+.choreo-final {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 17, 17, 0.45);
+  opacity: 0;
+  padding: 24px;
+  text-align: center;
+}
+
+.choreo-final span {
+  color: #fff;
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.choreo-center {
+  position: relative;
+  z-index: 5;
   max-width: 760px;
   text-align: center;
   margin: 0 auto;
+  padding: 0 24px;
 }
 
-.hero h1 {
+.choreo-center h1 {
   font-size: clamp(32px, 5vw, 52px);
   font-weight: 800;
   margin-bottom: 20px;
@@ -432,6 +503,7 @@ section h2 { font-size: clamp(26px, 3.6vw, 38px); font-weight: 800; }
 @media (max-width: 640px) {
   nav a:not(.btn) { display: none; }
   section { padding: 56px 0; }
-  .hero { padding: 64px 0 48px; }
+  .hero-choreo { padding: 0; }
+  .choreo-img { width: 42vw; height: 15vh; }
   .trust-inner { justify-content: center; }
 }
