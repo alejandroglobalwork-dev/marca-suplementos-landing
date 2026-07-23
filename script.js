@@ -49,7 +49,6 @@ function initScrollChoreography() {
     tr: section.querySelector('.choreo-tr'),
     bl: section.querySelector('.choreo-bl'),
     br: section.querySelector('.choreo-br'),
-    center: section.querySelector('.choreo-center'),
     final: section.querySelector('.choreo-final'),
   };
 
@@ -103,11 +102,6 @@ function initScrollChoreography() {
     els.tl.style.opacity = under;
     els.bl.style.opacity = under;
     els.br.style.opacity = under;
-
-    // El texto central se desvanece cuando las imágenes convergen.
-    const centerOp = interp(p, [0.25, 0.45], [1, 0]);
-    els.center.style.opacity = centerOp;
-    els.center.style.pointerEvents = centerOp < 0.4 ? 'none' : '';
 
     // Mensaje final sobre la imagen expandida.
     els.final.style.opacity = interp(p, [0.85, 0.97], [0, 1]);

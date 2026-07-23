@@ -192,20 +192,6 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
   letter-spacing: -0.015em;
 }
 
-.choreo-center {
-  position: relative;
-  z-index: 5;
-  max-width: 760px;
-  text-align: center;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.choreo-center h1 {
-  font-size: clamp(32px, 5vw, 52px);
-  font-weight: 800;
-  margin-bottom: 20px;
-}
 
 .hero-sub {
   font-size: 18px;
