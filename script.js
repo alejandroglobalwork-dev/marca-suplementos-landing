@@ -95,7 +95,6 @@ function initScrollChoreography() {
     bl: section.querySelector('.choreo-bl'),
     br: section.querySelector('.choreo-br'),
     final: section.querySelector('.choreo-final'),
-    heading: section.querySelector('.choreo-heading'),
   };
 
   // Interpolación lineal por tramos, equivalente a useTransform(progress, stops, values).
@@ -115,11 +114,9 @@ function initScrollChoreography() {
   function offsets() {
     // En móvil las imágenes se separan menos para no pisar el texto central.
     const mobile = window.matchMedia('(max-width: 640px)').matches;
-    // El grupo de imágenes arranca desplazado hacia abajo para dejar
-    // sitio al titular; la convergencia sigue siendo al centro.
     return mobile
-      ? { x: 26, yTop: -14, yBottom: 30, w: 42, h: 15 }   // vw / vh
-      : { x: 20, yTop: -8, yBottom: 18, w: 36, h: 24 };
+      ? { x: 23, yTop: -12, yBottom: 12, w: 42, h: 15 }   // vw / vh
+      : { x: 19.5, yTop: -13.5, yBottom: 13.5, w: 36, h: 24 };
   }
 
   function apply(p) {
@@ -151,13 +148,10 @@ function initScrollChoreography() {
     els.bl.style.opacity = under;
     els.br.style.opacity = under;
 
-    // El titular se desvanece al empezar el scroll.
-    const headOp = interp(p, [0.12, 0.3], [1, 0]);
-    els.heading.style.opacity = headOp;
-    els.heading.style.pointerEvents = headOp < 0.4 ? 'none' : '';
-
-    // Mensaje final sobre la imagen expandida.
-    els.final.style.opacity = interp(p, [0.85, 0.97], [0, 1]);
+    // Mensaje final + captura de email sobre la imagen expandida.
+    const finalOp = interp(p, [0.85, 0.97], [0, 1]);
+    els.final.style.opacity = finalOp;
+    els.final.style.pointerEvents = finalOp > 0.5 ? 'auto' : 'none';
   }
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

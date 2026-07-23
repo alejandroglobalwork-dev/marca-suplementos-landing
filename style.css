@@ -216,24 +216,6 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
 
 .no-motion .choreo-sticky { position: relative; }
 
-.choreo-heading {
-  position: absolute;
-  top: 3vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(92%, 680px);
-  text-align: center;
-  z-index: 5;
-}
-
-.choreo-heading .eyebrow { margin-bottom: 4px; }
-
-.heading-sub {
-  font-size: 15px;
-  color: var(--grey);
-  margin-bottom: 14px;
-}
-
 .waitlist-form-compact input {
   flex: 0 1 240px;
   padding: 10px 16px;
@@ -279,19 +261,51 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(17, 17, 17, 0.45);
+  background: rgba(17, 17, 17, 0.5);
   opacity: 0;
+  pointer-events: none;
   padding: 24px;
   text-align: center;
 }
 
-.choreo-final span {
+.choreo-final .eyebrow { color: rgba(255, 255, 255, 0.8); margin-bottom: 10px; }
+
+.choreo-final-title {
   color: #fff;
-  font-size: clamp(26px, 4vw, 46px);
+  font-size: clamp(24px, 3.6vw, 42px);
   font-weight: 800;
   letter-spacing: -0.015em;
+  line-height: 1.15;
+  max-width: 720px;
+  margin-bottom: 10px;
+}
+
+.choreo-final-sub {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.choreo-final .waitlist-form input {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.choreo-final .waitlist-form input::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+.choreo-final .btn {
+  background: #fff;
+  color: var(--ink);
+  border-color: #fff;
+}
+
+.choreo-final .btn:hover {
+  background: var(--sage-light);
+  border-color: var(--sage-light);
 }
 
 
