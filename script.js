@@ -24,4 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
       form.reset();
     });
   });
+
+  // Enlace del libro pendiente de URL real (ver TODO en index.html).
+  document.querySelectorAll('[data-pending-link]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.warn('Enlace del libro pendiente: falta la URL del punto de venta de Sento.');
+    });
+  });
 });
