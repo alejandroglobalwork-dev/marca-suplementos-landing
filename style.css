@@ -200,7 +200,7 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
 
 /* Título sobre el hero y captura de email bajo el hero */
 .hero-intro {
-  padding: 44px 0 0;
+  padding: 30px 0 0;
   text-align: center;
 }
 

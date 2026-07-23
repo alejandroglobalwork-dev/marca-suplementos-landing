@@ -116,8 +116,8 @@ function initScrollChoreography() {
     const mobile = window.matchMedia('(max-width: 640px)').matches;
     // El grupo arranca alto (cerca del título) y converge al centro al hacer scroll.
     return mobile
-      ? { x: 23, yTop: -19, yBottom: 5, w: 42, h: 15 }   // vw / vh
-      : { x: 19.5, yTop: -19, yBottom: 8, w: 36, h: 24 };
+      ? { x: 23, yTop: -22, yBottom: 0, w: 42, h: 15 }   // vw / vh
+      : { x: 19.5, yTop: -24, yBottom: 4, w: 36, h: 24 };
   }
 
   function apply(p) {
