@@ -226,11 +226,11 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
   z-index: 5;
 }
 
-.choreo-heading .eyebrow { margin-bottom: 6px; }
+.choreo-heading .eyebrow { margin-bottom: 4px; }
 
-.choreo-heading h1 {
-  font-size: clamp(24px, 3.2vw, 38px);
-  font-weight: 800;
+.heading-sub {
+  font-size: 15px;
+  color: var(--grey);
   margin-bottom: 14px;
 }
 
