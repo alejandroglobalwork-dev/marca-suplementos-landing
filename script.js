@@ -114,9 +114,10 @@ function initScrollChoreography() {
   function offsets() {
     // En móvil las imágenes se separan menos para no pisar el texto central.
     const mobile = window.matchMedia('(max-width: 640px)').matches;
+    // El grupo arranca alto (cerca del título) y converge al centro al hacer scroll.
     return mobile
-      ? { x: 23, yTop: -12, yBottom: 12, w: 42, h: 15 }   // vw / vh
-      : { x: 19.5, yTop: -13.5, yBottom: 13.5, w: 36, h: 24 };
+      ? { x: 23, yTop: -19, yBottom: 5, w: 42, h: 15 }   // vw / vh
+      : { x: 19.5, yTop: -19, yBottom: 8, w: 36, h: 24 };
   }
 
   function apply(p) {
