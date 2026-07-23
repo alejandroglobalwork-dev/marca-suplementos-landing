@@ -148,10 +148,8 @@ function initScrollChoreography() {
     els.bl.style.opacity = under;
     els.br.style.opacity = under;
 
-    // Mensaje final + captura de email sobre la imagen expandida.
-    const finalOp = interp(p, [0.85, 0.97], [0, 1]);
-    els.final.style.opacity = finalOp;
-    els.final.style.pointerEvents = finalOp > 0.5 ? 'auto' : 'none';
+    // Mensaje final sobre la imagen expandida.
+    els.final.style.opacity = interp(p, [0.85, 0.97], [0, 1]);
   }
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -161,23 +159,20 @@ function initScrollChoreography() {
     return;
   }
 
-  let current = 0;
-  let target = 0;
-
   function readTarget() {
     const rect = section.getBoundingClientRect();
     const total = section.offsetHeight - window.innerHeight;
-    target = Math.min(1, Math.max(0, -rect.top / total));
+    return Math.min(1, Math.max(0, -rect.top / total));
   }
 
-  window.addEventListener('scroll', readTarget, { passive: true });
-  window.addEventListener('resize', readTarget);
-  readTarget();
-  current = target;
+  let current = readTarget();
   apply(current);
 
   // Suavizado tipo muelle: sustituye al useSpring de framer-motion.
+  // La posición se lee en cada frame (no en el evento scroll), que es
+  // más fiable en navegadores móviles.
   (function tick() {
+    const target = readTarget();
     current += (target - current) * 0.14;
     if (Math.abs(target - current) > 0.0005) {
       apply(current);

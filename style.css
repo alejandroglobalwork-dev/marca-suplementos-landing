@@ -198,6 +198,30 @@ nav a {
 
 nav a:not(.btn):hover { color: var(--sage-dark); }
 
+/* Título sobre el hero y captura de email bajo el hero */
+.hero-intro {
+  padding: 56px 0 12px;
+  text-align: center;
+}
+
+.hero-intro h1 {
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 800;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-capture {
+  padding: 8px 0 56px;
+  text-align: center;
+}
+
+.heading-sub {
+  font-size: 16px;
+  color: var(--grey);
+  margin-bottom: 16px;
+}
+
 /* Hero con coreografía de scroll */
 .hero-choreo {
   position: relative;
@@ -211,6 +235,7 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100svh; /* viewport real en móvil, con barra de dirección dinámica */
   overflow: hidden;
 }
 
@@ -271,8 +296,6 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
   text-align: center;
 }
 
-.choreo-final .eyebrow { color: rgba(255, 255, 255, 0.8); margin-bottom: 10px; }
-
 .choreo-final-title {
   color: #fff;
   font-size: clamp(24px, 3.6vw, 42px);
@@ -280,32 +303,6 @@ nav a:not(.btn):hover { color: var(--sage-dark); }
   letter-spacing: -0.015em;
   line-height: 1.15;
   max-width: 720px;
-  margin-bottom: 10px;
-}
-
-.choreo-final-sub {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 15px;
-  margin-bottom: 18px;
-}
-
-.choreo-final .waitlist-form input {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: #fff;
-}
-
-.choreo-final .waitlist-form input::placeholder { color: rgba(255, 255, 255, 0.6); }
-
-.choreo-final .btn {
-  background: #fff;
-  color: var(--ink);
-  border-color: #fff;
-}
-
-.choreo-final .btn:hover {
-  background: var(--sage-light);
-  border-color: var(--sage-light);
 }
 
 
